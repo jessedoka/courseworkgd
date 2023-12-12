@@ -6,24 +6,34 @@ using System.Collections;
 
 // https://www.brechtos.com/hiding-or-disabling-inspector-properties-using-propertydrawers-within-unity-5/
 
-// modified by: Sebastian Lague
 
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property |
     AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
 public class ConditionalHideAttribute : PropertyAttribute
 {
-    public string conditionalSourceField;
-    public int enumIndex;
+    public string ConditionalSourceField = "";
+    public bool HideInInspector = false;
+    public bool Inverse = false;
 
-    public ConditionalHideAttribute(string boolVariableName)
+    public ConditionalHideAttribute(string conditionalSourceField)
     {
-        conditionalSourceField = boolVariableName;
+        this.ConditionalSourceField = conditionalSourceField;
+        this.HideInInspector = false;
+        this.Inverse = false;
     }
 
-    public ConditionalHideAttribute(string enumVariableName, int enumIndex)
+    public ConditionalHideAttribute(string conditionalSourceField, bool hideInInspector)
     {
-        conditionalSourceField = enumVariableName;
-        this.enumIndex = enumIndex;
+        this.ConditionalSourceField = conditionalSourceField;
+        this.HideInInspector = hideInInspector;
+        this.Inverse = false;
+    }
+
+    public ConditionalHideAttribute(string conditionalSourceField, bool hideInInspector, bool inverse)
+    {
+        this.ConditionalSourceField = conditionalSourceField;
+        this.HideInInspector = hideInInspector;
+        this.Inverse = inverse;
     }
 
 }
